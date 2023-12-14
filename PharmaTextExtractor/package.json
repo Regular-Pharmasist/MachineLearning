@@ -1,0 +1,18 @@
+{
+  "name": "pharmatextextractor",
+  "version": "1.0.0",
+  "description": "",
+  "main": " PharmaTextExtractor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/vision": "^4.0.2",
+"@react-native-firebase/app": "^8.4.7",
+    "@react-native-firebase/ml-vision": "^7.4.13",
+    "dotenv": "^16.3.1"
+  }
+}
