@@ -22,7 +22,7 @@ public class DrugNameExtractor {
 
         try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
             // 이미지 파일의 경로로 교체
-            String imagePath = "/Users/kim-yeong-u/Desktop/GitHub/image/IMG_4638.jpg";
+            String imagePath = "/Users/kim-yeong-u/Desktop/스크린샷 2024-01-18 오전 5.52.23.png";
 
             // 이미지 파일 읽기
             byte[] data = java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(imagePath));
@@ -41,8 +41,20 @@ public class DrugNameExtractor {
 
             for (AnnotateImageResponse response : responses.getResponsesList()) {
                 // 추출된 텍스트(약물 이름) 처리
-                System.out.println("추출된 텍스트: " + response.getTextAnnotationsList().get(0).getDescription());
+                String[] words = response.getTextAnnotationsList().get(0).getDescription().split("\\s+");
+                for (String word : words) {
+                    if (isDesiredWord(word)) {
+                        System.out.println("추출된 텍스트: " + word);
+                    }
+                }
             }
         }
+    }
+
+    private static boolean isDesiredWord(String word) {
+        // 파싱 단어 조건
+        // 차후 상세 변동 요망
+        return (word.contains("정") || word.contains("캡슐") || word.contains("필름") || word.contains("캅셀") || word.contains("시럽"))
+                && !word.contains("정보") && !word.contains("정제") && !word.contains("캅셀제")&& !word.contains("시럽제");
     }
 }
