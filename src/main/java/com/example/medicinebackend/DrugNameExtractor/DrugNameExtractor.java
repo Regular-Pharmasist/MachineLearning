@@ -10,6 +10,9 @@ import com.google.cloud.vision.v1.ImageSource;
 import com.google.cloud.vision.v1.Feature;
 import com.google.cloud.vision.v1.Feature.Type;
 
+import org.springframework.web.multipart.MultipartFile;
+
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,12 +23,12 @@ public class DrugNameExtractor {
         // Google Cloud Vision API 사용을 위한 자격 증명 파일 경로 설정
         System.setProperty("GOOGLE_APPLICATION_CREDENTIALS", "/Users/kim-yeong-u/Desktop/GitHub/pharmatextextractor-406403-ac4b89667f2a.json");
 
-        try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
-            // 이미지 파일의 경로로 교체
-            String imagePath = "/Users/kim-yeong-u/Desktop/스크린샷 2024-01-18 오전 5.52.23.png";
+        // MultipartFile 로드
+        MultipartFile multipartFile = getYourMultipartFile();
 
-            // 이미지 파일 읽기
-            byte[] data = java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(imagePath));
+        try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
+            // MultipartFile에서 이미지 데이터 읽기
+            byte[] data = multipartFile.getBytes();
             Image image = Image.newBuilder().setContent(com.google.protobuf.ByteString.copyFrom(data)).build();
 
             // 텍스트 감지를 위한 특징 설정
@@ -39,12 +42,13 @@ public class DrugNameExtractor {
             // 이미지 처리 요청 및 응답 받기
             BatchAnnotateImagesResponse responses = vision.batchAnnotateImages(requests);
 
+            // 약물 이름 처리 및 결과 리스트 반환
+            List<String> drugNames = new ArrayList<>();
             for (AnnotateImageResponse response : responses.getResponsesList()) {
-                // 추출된 텍스트(약물 이름) 처리
                 String[] words = response.getTextAnnotationsList().get(0).getDescription().split("\\s+");
                 for (String word : words) {
                     if (isDesiredWord(word)) {
-                        System.out.println("추출된 텍스트: " + word);
+                        drugNames.add(word);
                     }
                 }
             }
@@ -56,5 +60,10 @@ public class DrugNameExtractor {
         // 차후 상세 변동 요망
         return (word.contains("정") || word.contains("캡슐") || word.contains("필름") || word.contains("캅셀") || word.contains("시럽"))
                 && !word.contains("정보") && !word.contains("정제") && !word.contains("캅셀제")&& !word.contains("시럽제");
+    }
+
+    private static MultipartFile getYourMultipartFile() {
+        // MultipartFile 구체적인 로직
+        return null;
     }
 }
