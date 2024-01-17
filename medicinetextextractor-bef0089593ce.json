@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "medicinetextextractor",
+  "private_key_id": "bef0089593cea346b54049b690126d2cb8914e1a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDJ8Kgkheat5IEU\nZ39dTPQW7Dw+/nAqPKHQU85YYp5L207WI3YQQfr6lafZYkQEThz3h7y1JIYKzpVS\nlRPE2Ix66zgU66FOqmn9s4sEajCLCNFP7GEEXwtHsJTdjfrlN12tBMP4UjVL2irz\n+Wh1sdWKmE5aXXGA3XC7o/wKZ8kYO0bwri2RUgVkvlUWvZGQMnFdUhrvwbzdv8HV\n9ewbOT7JfIBLuX5Akfp+yptZriJMim8wZDbNmJZewhz12Bb52VsdscGWNd60U8SQ\nOWlAe8WXbnv0B2oegP2VeRmbw4SlKjS+2S6GUybW5idETIt8budNs86ZAiUGrbnd\nP/onGAsRAgMBAAECggEAVd+F0Qoz30yla2Tbr3RS9BB/ShZu4jcoZGvO+pztTbqz\n2rH3udAlBzxuxS1ZWS9SeBx7rdgbPCs/KoAEiRfBHWA7WAIfdVFYgy8/daAmhmk4\ngTE2zGISbOj1VQXUZHbX2gSFxWpICbp7u4Ya2rnF4gsEfr7vzmncT57bRh1+UVPZ\npV9UWFsBZy3GZlN4jPduN79hHZNWYW0QfhEo1rDZd36OD1Gvx7yHcJlVwVG2Rr78\n3KnVglFlKAoJk4ee0SOzlBV/aO6AyqN272IHG/DlRH/XTn8D6JB4Crzp8gC64JJG\nBFT6V5sOcjnpfHeNL8rjVyEjLh+FH8uLr/BQaePtFQKBgQD4T81pwuUQleSB2rsO\nsbt8enWvU2/e8qraP+miatiyalnEMblWs1SuiTMV9KnDi81ruBX6SujTOFM0mS7J\nyK30wTRiUQMmPR3dvoj0WdrWoVLOOGhwRwDyzuHwT4/zd6iyl9anYbM9bc+DMZgP\nYYtDVHii5OfqCE6tWa+k0D1R/wKBgQDQMUxClTs8TxCrHnNzwRkFQ0wvhsi2rbdZ\nAJ21q3mKoeE3YGmPn5JPW1979sOv7IP90uiFId5nUxVzSuAxYSuA5Fac0hUBxsj6\n3S5cwsRhMVi4ZQE7q90uTf11KgrUO0iDm3x9v/G6wMhFH/NdcIcvExEF9N/hN7P+\nuxCJa8uC7wKBgCJjSts+tmJZn8+r7wPV8VUH0Ix7TZ7elHKtLzni+iebOttE15n+\nM9gIAB8mRuxhzA0C7WhAP4Yg4sUCAczIEe83Yn3LIliFVkGDRYwxdXEL3l/Yx/3k\nl2kI5ZlWK2VYSPCSvpNnoF79eiN9FsXqiFLGu/4zHTr3841mQkDc5eEZAoGAK4FR\nvUwv/69J/Wg0mgjM8LOadQgGY14zxS6CxlbZ5CVlycuk43Vl/p1Ke74aMGYNQvpS\nypdEQXU0M05/QPJcQ+fzTXv9FczzbLDRomK05NaKAqZgtpZ4dtenUleBwc3Nnmrc\nfe6hVfQ5JXDCy1DbfvPOB9+e9RJN07pFf2H+OhMCgYEA3+1mDHLHA2V0O+GMmqUW\nO5nC1JPuz0cHeuoWeV2kZ6cckQbA2+DrTa4e37v6LBxWs531Sax7iyH+81ylKkow\nhNA3J7B2Ufssdgf2AFTBlaEGBPt5i7o5KjEQd5fr8gOmVLCUJMbqYdeBauO1q21i\nXFdh4Ozf/X0ht2U1/htvb9g=\n-----END PRIVATE KEY-----\n",
+  "client_email": "yeong-u@medicinetextextractor.iam.gserviceaccount.com",
+  "client_id": "103684361924846721360",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/yeong-u%40medicinetextextractor.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
