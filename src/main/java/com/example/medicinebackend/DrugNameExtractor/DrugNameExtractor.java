@@ -17,8 +17,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class DrugNameExtractor {
+
     public static void main(String[] args) throws IOException {
         // Google Cloud Vision API 사용을 위한 자격 증명 파일 경로 설정
         System.setProperty("GOOGLE_APPLICATION_CREDENTIALS", "/Users/kim-yeong-u/Desktop/GitHub/pharmatextextractor-406403-ac4b89667f2a.json");
@@ -33,8 +36,8 @@ public class DrugNameExtractor {
 
             // 텍스트 감지를 위한 특징 설정
             Feature feature = Feature.newBuilder().setType(Type.TEXT_DETECTION).build();
-            AnnotateImageRequest request =
-                    AnnotateImageRequest.newBuilder().addFeatures(feature).setImage(image).build();
+            AnnotateImageRequest request = AnnotateImageRequest.newBuilder().addFeatures(feature).setImage(image)
+                    .build();
 
             List<AnnotateImageRequest> requests = new ArrayList<>();
             requests.add(request);
@@ -42,15 +45,27 @@ public class DrugNameExtractor {
             // 이미지 처리 요청 및 응답 받기
             BatchAnnotateImagesResponse responses = vision.batchAnnotateImages(requests);
 
+            // 유일한 약물 이름을 저장하기 위한 Set
+            Set<String> uniqueDrugNames = new HashSet<>();
+
             // 약물 이름 처리 및 결과 리스트 반환
-            List<String> drugNames = new ArrayList<>();
             for (AnnotateImageResponse response : responses.getResponsesList()) {
-                String[] words = response.getTextAnnotationsList().get(0).getDescription().split("\\s+");
+                String description = response.getTextAnnotationsList().get(0).getDescription();
+                String[] words = description.split("\\s+");
+
                 for (String word : words) {
+                    // 밀리그램 변경
+                    word = replaceMgPlaceholder(word);
+
                     if (isDesiredWord(word)) {
-                        drugNames.add(word);
+                        uniqueDrugNames.add(word);
                     }
                 }
+            }
+
+            // 유일한 약물 이름 출력 또는 사용
+            for (String drugName : uniqueDrugNames) {
+                System.out.println(drugName);
             }
         }
     }
@@ -59,7 +74,12 @@ public class DrugNameExtractor {
         // 파싱 단어 조건
         // 차후 상세 변동 요망
         return (word.contains("정") || word.contains("캡슐") || word.contains("필름") || word.contains("캅셀") || word.contains("시럽"))
-                && !word.contains("정보") && !word.contains("정제") && !word.contains("캅셀제")&& !word.contains("시럽제");
+                && !word.contains("정보") && !word.contains("정제") && !word.contains("캅셀제") && !word.contains("시럽제");
+    }
+
+    private static String replaceMgPlaceholder(String word) {
+        // 밀리그램 변경
+        return word.replaceAll("<mg>", "<밀리그램>");
     }
 
     private static MultipartFile getYourMultipartFile() {
