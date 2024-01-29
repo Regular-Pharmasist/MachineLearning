@@ -74,7 +74,7 @@ public class DrugNameExtractor {
         // 파싱 단어 조건
         // 차후 상세 변동 요망
         return (word.contains("정") || word.contains("캡슐") || word.contains("필름") || word.contains("캅셀") || word.contains("시럽"))
-                && !word.contains("정보") && !word.contains("정제") && !word.contains("캅셀제") && !word.contains("시럽제");
+                && !word.contains("정보") && !word.contains("정제") && !word.contains("캅셀제") && !word.contains("시럽제") && !word.contains("코팅정");
     }
 
     private static String replaceMgPlaceholder(String word) {
