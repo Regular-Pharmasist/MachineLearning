@@ -17,8 +17,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
 
 public class DrugNameExtractor {
 
@@ -45,8 +43,8 @@ public class DrugNameExtractor {
             // 이미지 처리 요청 및 응답 받기
             BatchAnnotateImagesResponse responses = vision.batchAnnotateImages(requests);
 
-            // 유일한 약물 이름을 저장하기 위한 Set
-            Set<String> uniqueDrugNames = new HashSet<>();
+            // List를 사용하여 유일한 약물 이름을 저장
+            List<String> uniqueDrugNames = new ArrayList<>();
 
             // 약물 이름 처리 및 결과 리스트 반환
             for (AnnotateImageResponse response : responses.getResponsesList()) {
@@ -57,7 +55,7 @@ public class DrugNameExtractor {
                     // 밀리그램 변경
                     word = replaceMgPlaceholder(word);
 
-                    if (isDesiredWord(word)) {
+                    if (isDesiredWord(word) && !uniqueDrugNames.contains(word)) {
                         uniqueDrugNames.add(word);
                     }
                 }

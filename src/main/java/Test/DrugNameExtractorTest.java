@@ -6,9 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class DrugNameExtractorTest {
 
@@ -17,14 +15,14 @@ public class DrugNameExtractorTest {
         System.setProperty("GOOGLE_APPLICATION_CREDENTIALS", "/Users/kim-yeong-u/Desktop/GitHub/ML/medicinetextextractor-bef0089593ce.json");
 
         try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
-            // 이미지 파일 경로로 대체
+            // 이미지 파일 경로로 교체
             String imagePath = "/Users/kim-yeong-u/Desktop/GitHub/image/test_img.png";
 
             // 이미지 파일 읽기
             byte[] data = java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(imagePath));
             Image image = Image.newBuilder().setContent(com.google.protobuf.ByteString.copyFrom(data)).build();
 
-            // 텍스트 검출을 위한 기능 설정
+            // 텍스트 감지를 위한 기능 설정
             Feature feature = Feature.newBuilder().setType(Type.TEXT_DETECTION).build();
             AnnotateImageRequest request = AnnotateImageRequest.newBuilder().addFeatures(feature).setImage(image)
                     .build();
@@ -35,25 +33,25 @@ public class DrugNameExtractorTest {
             // 이미지 처리 요청 및 응답 받기
             BatchAnnotateImagesResponse responses = vision.batchAnnotateImages(requests);
 
-            // 고유한 약물 이름을 저장할 Set 설정
-            Set<String> uniqueDrugNames = new HashSet<>();
+            // 유일한 약물 이름을 저장하기 위한 리스트
+            List<String> uniqueDrugNames = new ArrayList<>();
 
-            // 약물 이름 처리 및 결과 목록 반환
+            // 약물 이름 처리 및 결과 리스트 반환
             for (AnnotateImageResponse response : responses.getResponsesList()) {
                 String description = response.getTextAnnotationsList().get(0).getDescription();
                 String[] words = description.split("\\s+");
 
                 for (String word : words) {
-                    // 밀리그램 플레이스홀더 변경
+                    // 밀리그램 변경
                     word = replaceMgPlaceholder(word);
 
-                    if (isDesiredWord(word)) {
+                    if (isDesiredWord(word) && !uniqueDrugNames.contains(word)) {
                         uniqueDrugNames.add(word);
                     }
                 }
             }
 
-            // 고유한 약물 이름 출력 또는 사용
+            // 유일한 약물 이름 출력 또는 사용
             for (String drugName : uniqueDrugNames) {
                 System.out.println(drugName);
             }
